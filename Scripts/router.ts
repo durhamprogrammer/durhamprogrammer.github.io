@@ -138,12 +138,13 @@ router.AddTable([
 ]);
 
 let route: string = location.pathname; // alias for location.pathname
+console.log(location.pathname);
 
 // if route is found in the Routing Table
 router.ActiveLink = (router.Find(route) > -1) ? (route == "/") ? "home" : route.substring(1) : "404";
 
 // hack for GitHub Pages
-(function(location: Location)
+/* (function(location: Location)
 {
     console.log(location.search[1]);
     if (location.search[1] === '/' ) 
@@ -155,4 +156,4 @@ router.ActiveLink = (router.Find(route) > -1) ? (route == "/") ? "home" : route.
       window.history.replaceState(null, "", location.pathname.slice(0, -1) + decoded + location.hash);
     }
   }(window.location));
-//-- End Single Page Apps for GitHub Pages -->
+//-- End Single Page Apps for GitHub Pages --> */

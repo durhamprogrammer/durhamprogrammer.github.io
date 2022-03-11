@@ -58,14 +58,6 @@ router.AddTable([
     "/edit"
 ]);
 let route = location.pathname;
+console.log(location.pathname);
 router.ActiveLink = (router.Find(route) > -1) ? (route == "/") ? "home" : route.substring(1) : "404";
-(function (location) {
-    console.log(location.search[1]);
-    if (location.search[1] === '/') {
-        let decoded = location.search.slice(1).split('&').map(function (s) {
-            return s.replace(/~and~/g, '&');
-        }).join('?');
-        window.history.replaceState(null, "", location.pathname.slice(0, -1) + decoded + location.hash);
-    }
-}(window.location));
 //# sourceMappingURL=router.js.map
