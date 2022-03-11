@@ -537,6 +537,98 @@
     }
 
     /**
+     * This function adds a new Task to the TaskList
+     */
+     function AddNewTask() 
+     {
+       let messageArea = $("#messageArea");
+       messageArea.hide();
+       let taskInput = $("#taskTextInput");
+       let taskInputValue = taskInput.val() as string;
+ 
+       if (taskInput.val() != "" && taskInputValue.charAt(0) != " ") 
+       {
+         let newElement = `
+               <li class="list-group-item" id="task">
+               <span id="taskText">${taskInput.val()}</span>
+               <span class="float-end">
+                   <button class="btn btn-outline-primary btn-sm editButton"><i class="fas fa-edit"></i>
+                   <button class="btn btn-outline-danger btn-sm deleteButton"><i class="fas fa-trash-alt"></i></button>
+               </span>
+               <input type="text" class="form-control edit-task editTextInput">
+               </li>
+               `;
+         $("#taskList").append(newElement);
+         messageArea.removeAttr("class").hide();
+         taskInput.val("");
+       } 
+       else 
+       {
+         taskInput.trigger("focus").trigger("select");
+         messageArea.show().addClass("alert alert-danger").text("Please enter a valid Task.");
+       }
+     }
+ 
+     /**
+      * This function is the Callback function for the TaskList
+      *
+      */
+     function DisplayTaskList()
+     {
+         let messageArea = $("#messageArea");
+         messageArea.hide();
+         let taskInput = $("#taskTextInput");
+ 
+         // add a new Task to the Task List
+         $("#newTaskButton").on("click", function()
+         {         
+             AddNewTask();
+         });
+ 
+         taskInput.on("keypress", function(event)
+         {
+           if(event.key == "Enter")
+           {
+             AddNewTask();
+           }
+          });
+ 
+         // Edit an Item in the Task List
+         $("ul").on("click", ".editButton", function(){
+            let editText = $(this).parent().parent().children(".editTextInput");
+            let editTextValue = editText.val() as string;
+            let text = $(this).parent().parent().text();
+            editText.val(text).show().trigger("select");
+            editText.on("keypress", function(event)
+            {
+             if(event.key == "Enter")
+             {
+               if(editText.val() != "" && editTextValue.charAt(0) != " ")
+               {
+                 editText.hide();
+                 $(this).parent().children("#taskText").text(editText.val() as string);
+                 messageArea.removeAttr("class").hide();
+               }
+               else
+               {
+                 editText.trigger("focus").trigger("select");
+                 messageArea.show().addClass("alert alert-danger").text("Please enter a valid Task.");
+               }
+             }
+            });
+         });
+ 
+         // Delete a Task from the Task List
+         $("ul").on("click", ".deleteButton", function(){
+             if(confirm("Are you sure?"))
+             {
+                 $(this).closest("li").remove();
+             }    
+         });
+     }
+ 
+
+    /**
      * This method returns the appropriate function callback relative to the Active Link
      *
      * @returns {Function}

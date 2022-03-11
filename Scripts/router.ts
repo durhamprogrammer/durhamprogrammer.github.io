@@ -142,18 +142,3 @@ console.log(location.pathname);
 
 // if route is found in the Routing Table
 router.ActiveLink = (router.Find(route) > -1) ? (route == "/") ? "home" : route.substring(1) : "404";
-
-// hack for GitHub Pages
-/* (function(location: Location)
-{
-    console.log(location.search[1]);
-    if (location.search[1] === '/' ) 
-    {
-      let decoded = location.search.slice(1).split('&').map(function(s) 
-      { 
-        return s.replace(/~and~/g, '&')
-      }).join('?');
-      window.history.replaceState(null, "", location.pathname.slice(0, -1) + decoded + location.hash);
-    }
-  }(window.location));
-//-- End Single Page Apps for GitHub Pages --> */
