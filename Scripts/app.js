@@ -301,7 +301,7 @@
     function Start() {
         console.log("App Started!");
         LoadHeader();
-        LoadContent();
+        LoadLink("home");
         LoadFooter();
     }
     window.addEventListener("load", Start);

@@ -573,8 +573,8 @@
 
         LoadHeader();
             
-        LoadContent();
-
+        LoadLink("home");
+        
         LoadFooter();
     }
 
